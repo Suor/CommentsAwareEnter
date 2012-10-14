@@ -31,7 +31,7 @@ class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
             line = self.line_str()
 
             start, _, end = line.partition(delim)
-            start = ' ' * len(start)
+            start = re.sub(r'\S', ' ', start)
             end = re.search(r'^\s*', end).group()
 
             self.view.insert(edit, self.cursor_pos(), '\n' + start + delim + end)
