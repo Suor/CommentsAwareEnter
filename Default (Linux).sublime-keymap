@@ -1,0 +1,3 @@
+[
+    { "keys": ["enter"], "command": "comments_aware_enter" }
+]
