@@ -20,13 +20,9 @@ class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
 
     Preserves line comments scope (by adding escaping chars as needed)
     and auto indents in comments.
-
-    TODO: cool Shift-Tab in comments.
-    TODO: make tab-aware
     """
-
     def run(self, edit):
-        if self.in_line_comment() and self.source() in LINE_COMMENTS:
+        if self.source() in LINE_COMMENTS:
             delim = LINE_COMMENTS[self.source()]
             line = self.line_str()
 
@@ -38,12 +34,8 @@ class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
         else:
             self.view.run_command('insert', {'characters': "\n"})
 
-
     def cursor_pos(self):
         return self.view.sel()[0].begin()
-
-    def in_line_comment(self):
-        return 'comment.line' in self.scope_name()
 
     def scope_name(self):
         return self.view.scope_name(self.cursor_pos())

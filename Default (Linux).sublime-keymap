@@ -1,3 +1,6 @@
 [
-    { "keys": ["enter"], "command": "comments_aware_enter" }
+    { "keys": ["enter"], "command": "comments_aware_enter", "context": [
+        { "key": "selector", "operator": "equal", "operand": "comment.line" },
+        { "key": "auto_complete_visible", "operator": "equal", "operand": false }
+    ] }
 ]
