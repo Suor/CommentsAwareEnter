@@ -11,6 +11,7 @@ LINE_COMMENTS = parse("""
     python perl ruby bash coffescript => #
     javascript json c c++ java php    => //
     clojure                           => ;
+    erlang                            => %
     sql                               => --
 """)
 
