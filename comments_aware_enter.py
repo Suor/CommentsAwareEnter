@@ -24,7 +24,7 @@ class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         if self.source() in LINE_COMMENTS:
             delim = LINE_COMMENTS[self.source()]
-            line = self.line_str()
+            line = self.line_start_str()
 
             start, delim, end = line.partition(delim)
             while end and end[0] == delim[-1]:
@@ -49,8 +49,12 @@ class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
     def source(self):
         return first(vec[1] for vec in self.parsed_scope() if vec[0] == 'source')
 
-    def line_str(self):
-        return self.view.substr(self.view.line(self.cursor_pos()))
+    def line_start(self):
+        line = self.view.line(self.cursor_pos())
+        return sublime.Region(line.begin(), self.cursor_pos())
+
+    def line_start_str(self):
+        return self.view.substr(self.line_start())
 
 
 def parse_scope(scope_name):
