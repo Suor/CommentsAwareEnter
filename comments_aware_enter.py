@@ -31,7 +31,8 @@ class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
                 delim += end[0]
                 end = end[1:]
             start = re.sub(r'\S', ' ', start)
-            end = re.search(r'^\s*', end).group()
+            end = re.search(r'^\s*([A-Z]+:)?\s*', end).group()
+            end = ' ' * len(end)
 
             self.view.insert(edit, self.cursor_pos(), '\n' + start + delim + end)
         else:
