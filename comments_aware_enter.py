@@ -23,7 +23,7 @@ class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
     and auto indents in comments.
     """
     def run(self, edit):
-        if self.source() in LINE_COMMENTS:
+        if self.source() in LINE_COMMENTS and 'comment' in self.view.scope_name(self.cursor_pos() - 1):
             delim = LINE_COMMENTS[self.source()]
             line = self.line_start_str()
 
