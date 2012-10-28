@@ -12,7 +12,7 @@ LINE_COMMENTS = parse("""
     js json c c++ java php            => //
     clojure                           => ;
     erlang                            => %
-    sql                               => --
+    sql haskell                       => --
 """)
 
 class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
