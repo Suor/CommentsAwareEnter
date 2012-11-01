@@ -27,7 +27,7 @@ class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
             delim = LINE_COMMENTS[self.source()]
             line = self.line_start_str()
 
-            start, delim, end = re.split(r'(%s+)' % re.escape(delim), line)
+            start, delim, end = re.split(r'(%s+)' % re.escape(delim), line, 1)
             start = re.sub(r'\S', ' ', start)
             end = re.search(r'^\s*([A-Z]+:)?\s*', end).group()
             end = ' ' * len(end)
