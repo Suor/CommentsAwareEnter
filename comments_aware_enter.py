@@ -8,11 +8,11 @@ def parse(desc):
 
 # Add your languages here
 LINE_COMMENTS = parse("""
-    python perl ruby bash coffescript => #
-    js json c c++ java php            => //
-    clojure                           => ;
-    erlang                            => %
-    sql haskell                       => --
+    python perl ruby bash coffescript shell => #
+    js json c c++ java php                  => //
+    clojure                                 => ;
+    erlang                                  => %
+    sql haskell                             => --
 """)
 
 class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
