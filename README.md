@@ -12,7 +12,7 @@ Sure, just add one of the following lines to your User Preferences:
     "linecomments_ctrl_enter": true,
     "linecomments_alt_enter": true,
     "linecomments_shift_enter": true,
-    "linecomments_super_enter": true,
+    "linecomments_super_enter": true, // Stands for Cmd on Mac OS X
     ...
 }
 ```
