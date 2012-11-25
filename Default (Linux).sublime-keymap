@@ -1,5 +1,29 @@
 [
     { "keys": ["enter"], "command": "comments_aware_enter", "context": [
+        { "key": "setting.linecomments_ctrl_enter", "operand": false},
+        { "key": "setting.linecomments_alt_enter", "operand": false},
+        { "key": "setting.linecomments_shift_enter", "operand": false},
+        { "key": "setting.linecomments_super_enter", "operand": false},
+        { "key": "selector", "operator": "equal", "operand": "comment.line" },
+        { "key": "auto_complete_visible", "operator": "equal", "operand": false }
+    ] },
+    { "keys": ["ctrl+enter"], "command": "comments_aware_enter", "context": [
+        { "key": "setting.linecomments_ctrl_enter"},
+        { "key": "selector", "operator": "equal", "operand": "comment.line" },
+        { "key": "auto_complete_visible", "operator": "equal", "operand": false }
+    ] },
+    { "keys": ["alt+enter"], "command": "comments_aware_enter", "context": [
+        { "key": "setting.linecomments_alt_enter"},
+        { "key": "selector", "operator": "equal", "operand": "comment.line" },
+        { "key": "auto_complete_visible", "operator": "equal", "operand": false }
+    ] },
+    { "keys": ["shift+enter"], "command": "comments_aware_enter", "context": [
+        { "key": "setting.linecomments_shift_enter"},
+        { "key": "selector", "operator": "equal", "operand": "comment.line" },
+        { "key": "auto_complete_visible", "operator": "equal", "operand": false }
+    ] },
+    { "keys": ["super+enter"], "command": "comments_aware_enter", "context": [
+        { "key": "setting.linecomments_super_enter"},
         { "key": "selector", "operator": "equal", "operand": "comment.line" },
         { "key": "auto_complete_visible", "operator": "equal", "operand": false }
     ] }

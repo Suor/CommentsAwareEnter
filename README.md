@@ -2,6 +2,23 @@
 
 Hitting `Enter` in line comments will insert a proper indented comment marker for you.
 
+## Thats cool, but can I use `smth + Enter` instead?
+
+Sure, just add one of the following lines to your User Preferences:
+
+```js
+{
+    ...
+    "linecomments_ctrl_enter": true,
+    "linecomments_alt_enter": true,
+    "linecomments_shift_enter": true,
+    "linecomments_super_enter": true,
+    ...
+}
+```
+
+If any one of this options is used then plain `Enter` won't be captured, modified shortcut will be.
+
 
 ## Bugs
 
