@@ -10,7 +10,7 @@ def parse(desc):
 LINE_COMMENTS = parse("""
     python perl ruby coffescript shell => #
     js json c c++ java php             => //
-    clojure                            => ;
+    clojure racket                     => ;
     erlang                             => %
     sql haskell                        => --
 """)
