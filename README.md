@@ -1,4 +1,4 @@
-# Comments Aware Enter for Sublime Text 2
+# Comments Aware Enter for Sublime Text 2/3
 
 Hitting `Enter` in line comments will insert a proper indented comment marker for you.
 
