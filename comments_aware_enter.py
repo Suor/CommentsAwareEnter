@@ -9,7 +9,7 @@ def parse(desc):
 # Add your languages here
 LINE_COMMENTS = parse("""
     python perl ruby coffee shell => #
-    js json c c++ java php             => //
+    js json c c++ java php go          => //
     clojure racket                     => ;
     erlang                             => %
     sql haskell                        => --
