@@ -1,4 +1,4 @@
-# Comments Aware Enter for Sublime Text 2
+# Comments Aware Enter for Sublime Text 2/3
 
 Hitting `Enter` in line comments will insert a proper indented comment marker for you.
 
@@ -22,4 +22,4 @@ If any one of this options is used then plain `Enter` won't be captured, modifie
 
 ## Bugs
 
-- don't work if cursor is at very end of a file (A bug in Sublime Text 2)
+- don't work if cursor is at very end of a file (A bug in Sublime Text 2 and 3)
