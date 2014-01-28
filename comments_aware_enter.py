@@ -20,41 +20,54 @@ class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
     and auto indents in comments.
     """
     def run(self, edit):
-        delim = COMMENT_STYLES.get(self.comment_style())
-        line = self.line_start_str()
+        for region in reversed(self.view.sel()):
+            pos = region.end()
+            delim = COMMENT_STYLES.get(comment_style(self.view, pos))
+            line = line_start_str(self.view, pos)
 
-        if delim and delim in line:
-            start, delim, end = re.split(r'(%s+)' % re.escape(delim), line, 1)
-            start = re.sub(r'\S', ' ', start)
-            end = re.search(r'^\s*([A-Z]+:)?\s*', end).group()
-            end = ' ' * len(end)
+            if delim and delim in line:
+                start, delim, end = re.split(r'(%s+)' % re.escape(delim), line, 1)
+                start = re.sub(r'\S', ' ', start)
+                end = re.search(r'^\s*([A-Z]+:)?\s*', end).group()
+                end = ' ' * len(end)
+                replacement = "\n" + start + delim + end
+            else:
+                replacement = "\n"
 
-            self.view.insert(edit, self.cursor_pos(), '\n' + start + delim + end)
-        else:
-            self.view.run_command('insert', {'characters': "\n"})
+            self.view.erase(edit, region)
+            self.view.insert(edit, region.begin(), replacement)
 
-    def cursor_pos(self):
-        return self.view.sel()[0].begin()
 
-    def scope_name(self):
-        return self.view.scope_name(self.cursor_pos())
+### View tools
 
-    def parsed_scope(self):
-        return parse_scope(self.scope_name())
+def line_start(view, pos):
+    line = view.line(pos)
+    return sublime.Region(line.begin(), pos)
 
-    def comment_style(self):
-        return first(vec[2] for vec in self.parsed_scope() if vec[:2] == ['comment', 'line'])
+def line_start_str(view, pos):
+    return view.substr(line_start(view, pos))
 
-    def line_start(self):
-        line = self.view.line(self.cursor_pos())
-        return sublime.Region(line.begin(), self.cursor_pos())
 
-    def line_start_str(self):
-        return self.view.substr(self.line_start())
+### Scopes
 
+def comment_style(view, pos):
+    parsed_scope = parse_scope(scope_name(view, pos))
+    return first(vec[2] for vec in parsed_scope if vec[:2] == ['comment', 'line'])
+
+def scope_name(view, pos):
+    return view.scope_name(pos)
 
 def parse_scope(scope_name):
     return [name.split('.') for name in scope_name.split()]
 
+
+### funcy
+
 def first(seq):
     return next(iter(seq), None)
+
+def isa(*types):
+    return lambda x: isinstance(x, types)
+
+from collections import Iterable
+iterable = isa(Iterable)
