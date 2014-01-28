@@ -1,19 +1,16 @@
 import re
 import sublime, sublime_plugin
 
-def parse(desc):
-    rules = [map(str.strip, line.split('=>')) for line in desc.strip().splitlines()]
-    return dict((lang, delim) for langs, delim in rules
-                              for lang in langs.split())
 
-# Add your languages here
-LINE_COMMENTS = parse("""
-    python perl ruby coffee shell => #
-    js json c c++ java php             => //
-    clojure racket                     => ;
-    erlang                             => %
-    sql haskell                        => --
-""")
+COMMENT_STYLES = {
+    'number-sign'  : '#',
+    'double-slash' : '//',
+    'double-dash'  : '--',
+    'semicolon'    : ';',
+    'percentage'   : '%',
+    'erlang'       : '%',
+}
+
 
 class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
     """
@@ -23,10 +20,10 @@ class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
     and auto indents in comments.
     """
     def run(self, edit):
-        delim = LINE_COMMENTS.get(self.source())
+        delim = COMMENT_STYLES.get(self.comment_style())
         line = self.line_start_str()
 
-        if self.source() in LINE_COMMENTS and delim in line:
+        if delim and delim in line:
             start, delim, end = re.split(r'(%s+)' % re.escape(delim), line, 1)
             start = re.sub(r'\S', ' ', start)
             end = re.search(r'^\s*([A-Z]+:)?\s*', end).group()
@@ -45,8 +42,8 @@ class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
     def parsed_scope(self):
         return parse_scope(self.scope_name())
 
-    def source(self):
-        return first(vec[1] for vec in self.parsed_scope() if vec[0] == 'source')
+    def comment_style(self):
+        return first(vec[2] for vec in self.parsed_scope() if vec[:2] == ['comment', 'line'])
 
     def line_start(self):
         line = self.view.line(self.cursor_pos())
@@ -59,5 +56,5 @@ class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
 def parse_scope(scope_name):
     return [name.split('.') for name in scope_name.split()]
 
-def first(coll):
-    return next(coll, None)
+def first(seq):
+    return next(iter(seq), None)

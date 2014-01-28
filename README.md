@@ -23,7 +23,3 @@ If any one of this options is used then plain `Enter` won't be captured, modifie
 ## Bugs
 
 - don't work if cursor is at very end of a file (A bug in Sublime Text 2)
-
-## TODO
-
-- switch from language to line-comment scope detection
