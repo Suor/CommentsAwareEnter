@@ -1,6 +1,6 @@
 # Comments Aware Enter for Sublime Text 2/3
 
-Hitting `Enter` in line comments will insert a proper indented comment marker for you.
+Hitting `Enter` in line comments will insert a proper indented comment marker for you. This plugin is for **line comments only**, so it doesn't work with block ones.
 
 ## Thats cool, but can I use `smth + Enter` instead?
 
