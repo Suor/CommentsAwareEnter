@@ -32,5 +32,9 @@
         { "key": "setting.linecomments_cmd_enter"},
         { "key": "selector", "operator": "equal", "operand": "comment.line" },
         { "key": "auto_complete_visible", "operator": "equal", "operand": false }
+    ] },
+
+    { "keys": ["super+j"], "command": "comments_aware_join_lines", "context": [
+        { "key": "selector", "operator": "equal", "operand": "comment.line" }
     ] }
 ]

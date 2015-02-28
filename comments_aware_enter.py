@@ -38,6 +38,30 @@ class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
             self.view.insert(edit, region.begin(), replacement)
 
 
+class CommentsAwareJoinLinesCommand(sublime_plugin.TextCommand):
+    """
+    Context aware join lines.
+
+    Removes comment marker and extraneous space.
+    """
+    def run(self, edit):
+        for region in reversed(self.view.sel()):
+            pos = region.end()
+            delim = COMMENT_STYLES.get(comment_style(self.view, pos))
+            next_line = line_f(self.view, pos)
+            next_line_str = self.view.substr(next_line)
+
+            if delim and delim in next_line_str:
+                start, _, end = re.split(r'(%s+)' % re.escape(delim), next_line_str, 1)
+                if not start or start.isspace():
+                    next_line = sublime.Region(next_line.a - 1, next_line.b)
+                    end = re.sub(r'^\s+', ' ', end)
+                    self.view.replace(edit, next_line, end)
+                    return
+
+            self.view.run_command('join_lines')
+
+
 ### View tools
 
 def line_start(view, pos):
@@ -46,6 +70,17 @@ def line_start(view, pos):
 
 def line_start_str(view, pos):
     return view.substr(line_start(view, pos))
+
+def line_f(view, pos):
+    return view.line(newline_f(view, pos))
+
+if sublime.version() >= '3000':
+    def newline_f(view, pos):
+        return view.find_by_class(pos, True, sublime.CLASS_LINE_START)
+else:
+    def newline_f(view, pos):
+        region = view.find(r'^', pos + 1)
+        return region.end()
 
 
 ### Scopes
