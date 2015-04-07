@@ -23,8 +23,3 @@ Sure, just add one of the following lines to your User Preferences:
 ```
 
 If any one of this options is used then plain `Enter` won't be captured, modified shortcut will be.
-
-
-## Bugs
-
-- don't work if cursor is at very end of a file (A bug in Sublime Text 2 and 3)
