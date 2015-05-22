@@ -5,6 +5,7 @@ import sublime, sublime_plugin
 COMMENT_STYLES = {
     'number-sign'  : '#',
     'double-slash' : '//',
+    'documentation' : '*',
     'double-dash'  : '--',
     'semicolon'    : ';',
     'percentage'   : '%',
@@ -87,7 +88,10 @@ else:
 
 def comment_style(view, pos):
     parsed_scope = parse_scope(scope_name(view, pos))
-    return first(vec[2] for vec in parsed_scope if vec[:2] == ['comment', 'line'])
+    matches = [['comment', 'line'],['comment','block']]
+    matched = [vec[2] for vec in parsed_scope if vec[:2] in matches ]
+    ret = first(matched)
+    return ret
 
 def scope_name(view, pos):
     return view.scope_name(pos)
