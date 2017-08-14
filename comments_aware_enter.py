@@ -28,8 +28,9 @@ class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
             if delim and delim in line:
                 start, delim, end = re.split(r'(%s+)' % re.escape(delim), line, 1)
                 start = re.sub(r'\S', ' ', start)
-                end = re.search(r'^\s*([A-Z]+:)?\s*', end).group()
-                end = ' ' * len(end)
+                end = re.search(r'^\s*([A-Z]+:|-)?\s*', end).group()
+                if '-' not in end:
+                    end = ' ' * len(end)
                 replacement = "\n" + start + delim + end
             else:
                 replacement = "\n"
