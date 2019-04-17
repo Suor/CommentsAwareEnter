@@ -23,3 +23,25 @@ Sure, just add one of the following lines to your User Preferences:
 ```
 
 If any one of this options is used then plain `Enter` won't be captured, modified shortcut will be.
+
+
+## Labels and bullets
+
+CommentAwareEnter will automatically create "-" bullet for you and autoindent after labels:
+
+```python
+# TODO: Some thing,
+#       other thing indented.
+#           - nicely
+#           - formatted list
+```
+
+To switch off label indent say this in your settings:
+
+```js
+{
+    ...
+    "linecomments_label_indent": false,
+    ...
+}
+```

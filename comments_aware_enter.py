@@ -31,9 +31,12 @@ class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
                 if delim in line:
                     start, delim, end = re.split(r'(%s+)' % re.escape(delim), line, 1)
                     start = re.sub(r'\S', ' ', start)
-                    end = re.search(r'^\s*([A-Z]+:|-)?\s*', end).group()
+                    if self.view.settings().get('linecomments_label_indent', True):
+                        end = re.search(r'^\s*([A-Z]+:|-)?\s*', end).group()
+                    else:
+                        end = re.search(r'^\s*(-)?\s*', end).group()
                     if '-' not in end:
-                        end = ' ' * len(end)
+                            end = ' ' * len(end)
                     replacement = "\n" + start + delim + end
                     break
 
