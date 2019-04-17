@@ -3,12 +3,12 @@ import sublime, sublime_plugin
 
 
 COMMENT_STYLES = {
-    'number-sign'   : '#',
-    'double-slash'  : '//',
-    'double-dash'   : '--',
-    'semicolon'     : ';',
-    'percentage'    : '%',
-    'erlang'        : '%',
+    'number-sign'   : ['#'],
+    'double-slash'  : ['//'],
+    'double-dash'   : ['--'],
+    'semicolon'     : [';'],
+    'percentage'    : ['%'],
+    'erlang'        : ['%'],
     'documentation' : ['///', '//!'],
 }
 
@@ -24,8 +24,6 @@ class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
         for region in reversed(self.view.sel()):
             pos = region.end()
             delims = COMMENT_STYLES.get(comment_style(self.view, pos), [])
-            if isa_string(delims) or not iterable(delims):
-                delims = [delims]
             line = line_start_str(self.view, pos)
 
             replacement = "\n"
@@ -53,8 +51,6 @@ class CommentsAwareJoinLinesCommand(sublime_plugin.TextCommand):
         for region in reversed(self.view.sel()):
             pos = region.end()
             delims = COMMENT_STYLES.get(comment_style(self.view, pos), [])
-            if isa_string(delims) or not iterable(delims):
-                delims = [delims]
             next_line = line_f(self.view, pos)
             next_line_str = self.view.substr(next_line)
 
@@ -108,16 +104,3 @@ def parse_scope(scope_name):
 
 def first(seq):
     return next(iter(seq), None)
-
-def isa(*types):
-    return lambda x: isinstance(x, types)
-
-from collections import Iterable
-iterable = isa(Iterable)
-
-import sys
-
-if sys.version_info[0] == 3:
-    isa_string = isa(str)
-else:
-    isa_string = isa(basestring)
