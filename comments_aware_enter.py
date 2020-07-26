@@ -4,6 +4,7 @@ import sublime, sublime_plugin
 
 COMMENT_STYLES = {
     'number-sign'   : ['#'],
+    'graphql'       : ['#'],
     'double-slash'  : ['//'],
     'double-dash'   : ['--'],
     'semicolon'     : [';'],
