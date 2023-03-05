@@ -40,6 +40,10 @@ class CommentsAwareEnterCommand(sublime_plugin.TextCommand):
                             end = ' ' * len(end)
                     replacement = "\n" + start + delim + end
                     break
+            else:
+                # If no delim before cursor fall back to Sublime Text default implementation
+                self.view.run_command("insert", {"characters": "\n"})
+                return
 
             self.view.erase(edit, region)
             self.view.insert(edit, region.begin(), replacement)
